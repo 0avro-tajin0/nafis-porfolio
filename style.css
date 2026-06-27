@@ -955,22 +955,40 @@ button { cursor: none; border: none; background: none; }
 
 /* ===== Contacts ===== */
 .contacts {
+  border-top: 1px solid var(--glass-border);
+  position: relative;
+}
+
+.contacts-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 80vh;
-  border-top: 1px solid var(--glass-border);
+  width: 1140px;
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 .contacts-left {
-  background: var(--dark3);
-  border-right: 1px solid var(--glass-border);
+  background: transparent;
   display: flex;
   align-items: center;
-  padding: 100px 80px;
+  padding: 100px 60px 100px 0;
+  position: relative;
+}
+
+.contacts-left::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  right: 0;
+  left: -9999px;
+  background: var(--dark3);
+  z-index: -1;
 }
 
 .contacts-left-inner {
-  max-width: 420px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .contacts-eyebrow {
@@ -1032,10 +1050,21 @@ button { cursor: none; border: none; background: none; }
 
 /* Contact form (right side) */
 .contacts-right {
-  background: #0d0d0d;
+  background: transparent;
   display: flex;
   align-items: center;
-  padding: 100px 80px;
+  padding: 100px 0 100px 60px;
+  position: relative;
+}
+
+.contacts-right::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;
+  right: -9999px;
+  background: #0d0d0d;
+  z-index: -1;
 }
 
 .contacts-container {
@@ -1108,6 +1137,9 @@ button { cursor: none; border: none; background: none; }
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
+  width: 1140px;
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 .footer-logo {
@@ -1183,8 +1215,9 @@ button { cursor: none; border: none; background: none; }
   .timeline-meta { padding-top: 0; flex-direction: row; gap: 16px; align-items: center; }
   .projects-grid { grid-template-columns: 1fr 1fr; }
   .edu-grid { grid-template-columns: 1fr 1fr; }
-  .contacts { grid-template-columns: 1fr; }
-  .contacts-left { border-right: none; border-bottom: 1px solid var(--glass-border); }
+  .contacts-inner { grid-template-columns: 1fr; }
+  .contacts-left { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 60px 0; }
+  .contacts-right { padding: 60px 0; }
 }
 
 @media (max-width: 767px) {
@@ -1197,8 +1230,8 @@ button { cursor: none; border: none; background: none; }
   .projects-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
   .edu-grid { grid-template-columns: 1fr; }
-  .contacts-left { padding: 60px 30px; }
-  .contacts-right { padding: 60px 30px; }
+  .contacts-left { padding: 60px 0; }
+  .contacts-right { padding: 60px 0; }
   .contacts-heading { font-size: 34px; }
 }
 
@@ -1316,9 +1349,9 @@ button { cursor: none; border: none; background: none; }
   50%       { opacity: 0; }
 }
 
-/* ===== Section header centering ===== */
+/* ===== Section header - left aligned within container ===== */
 .section-header {
-  text-align: center;
+  text-align: left;
 }
 
 /* ===== Clickable project cards ===== */
