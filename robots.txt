@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://nafisiqbaltazin.netlify.app/sitemap.xml
+Sitemap: https://nafisiqbalpf.netlify.app/sitemap.xml
