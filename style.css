@@ -955,40 +955,24 @@ button { cursor: none; border: none; background: none; }
 
 /* ===== Contacts ===== */
 .contacts {
-  border-top: 1px solid var(--glass-border);
-  position: relative;
-}
-
-.contacts-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 80vh;
-  width: 1140px;
-  max-width: 90%;
-  margin: 0 auto;
+  border-top: 1px solid var(--glass-border);
 }
 
 .contacts-left {
-  background: transparent;
+  background: var(--dark3);
+  border-right: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
-  padding: 100px 60px 100px 0;
-  position: relative;
-}
-
-.contacts-left::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  right: 0;
-  left: -9999px;
-  background: var(--dark3);
-  z-index: -1;
+  /* Pad left to match container, right is fixed gap */
+  padding: 100px 60px 100px max(5%, calc((100vw - 1140px) / 2));
 }
 
 .contacts-left-inner {
+  max-width: 480px;
   width: 100%;
-  max-width: 100%;
 }
 
 .contacts-eyebrow {
@@ -1050,21 +1034,11 @@ button { cursor: none; border: none; background: none; }
 
 /* Contact form (right side) */
 .contacts-right {
-  background: transparent;
+  background: #0d0d0d;
   display: flex;
   align-items: center;
-  padding: 100px 0 100px 60px;
-  position: relative;
-}
-
-.contacts-right::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 0;
-  right: -9999px;
-  background: #0d0d0d;
-  z-index: -1;
+  /* Pad right to match container, left is fixed gap */
+  padding: 100px max(5%, calc((100vw - 1140px) / 2)) 100px 60px;
 }
 
 .contacts-container {
@@ -1215,9 +1189,9 @@ button { cursor: none; border: none; background: none; }
   .timeline-meta { padding-top: 0; flex-direction: row; gap: 16px; align-items: center; }
   .projects-grid { grid-template-columns: 1fr 1fr; }
   .edu-grid { grid-template-columns: 1fr 1fr; }
-  .contacts-inner { grid-template-columns: 1fr; }
-  .contacts-left { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 60px 0; }
-  .contacts-right { padding: 60px 0; }
+  .contacts { grid-template-columns: 1fr; }
+  .contacts-left { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 60px 5%; }
+  .contacts-right { padding: 60px 5%; }
 }
 
 @media (max-width: 767px) {
@@ -1230,8 +1204,8 @@ button { cursor: none; border: none; background: none; }
   .projects-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
   .edu-grid { grid-template-columns: 1fr; }
-  .contacts-left { padding: 60px 0; }
-  .contacts-right { padding: 60px 0; }
+  .contacts-left { padding: 60px 30px; }
+  .contacts-right { padding: 60px 30px; }
   .contacts-heading { font-size: 34px; }
 }
 
