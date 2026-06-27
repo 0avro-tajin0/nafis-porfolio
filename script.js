@@ -161,6 +161,40 @@ const projectsData = [
 ];
 
 // ─────────────────────────────────────────────
+// 2b. EDUCATION DATA (now one card per item — see Fix #1)
+// ─────────────────────────────────────────────
+const educationData = [
+  {
+    date: "2018 – 2019",
+    title: "SSC",
+    place: "Kaundia Shahid Smrity High School, Dhaka",
+    tag: "GPA 3.85 / 5.00",
+    active: false,
+  },
+  {
+    date: "2021 – 2025",
+    title: "Diploma in Computer Science & Engineering",
+    place: "Ahsanullah Institute of Technical & Vocational Education and Training, Tezturi Bazar, Dhaka",
+    tag: "CGPA 3.15 / 4.00",
+    active: false,
+  },
+  {
+    date: "2026 →",
+    title: "BSc in Computer Science & Engineering",
+    place: "Manarat International University — Evening Shift",
+    tag: "Running",
+    active: true,
+  },
+  {
+    date: "2026 →",
+    title: "Network Security Professional Program",
+    place: "DIU IT Academy — CCNA, AWS Cloud, Linux, Data Center",
+    tag: "In Progress",
+    active: true,
+  },
+];
+
+// ─────────────────────────────────────────────
 // 3. SECTION NAVIGATION — instant, no reload-feel, no scroll motion
 // ─────────────────────────────────────────────
 // Replaces the old full-screen "page transition" overlay, which added a
@@ -238,6 +272,31 @@ function renderCards(data, container, type) {
     container.appendChild(card);
   });
   observeRevealElements();
+}
+
+// ─────────────────────────────────────────────
+// 4b. EDUCATION CARD RENDERER (Fix #1 — each period in its own card)
+// ─────────────────────────────────────────────
+function renderEducationCards(data, container) {
+  if (!container) return;
+  container.innerHTML = "";
+  data.forEach((item) => {
+    const card = document.createElement("div");
+    // NOTE: no "reveal" class on the inner card itself, and no hover/scale
+    // transition is attached in CSS for .edu-card — see Fix #1 in style.css.
+    card.className = "edu-card glass";
+
+    card.innerHTML = `
+      <div class="edu-card-dot ${item.active ? "edu-card-dot--active" : ""}"></div>
+      <div class="edu-card-body">
+        <span class="edu-card-date mono">${item.date}</span>
+        <strong class="edu-card-title">${item.title}</strong>
+        <p class="edu-card-place">${item.place}</p>
+        <span class="tag ${item.active ? "in-progress" : ""}">${item.tag}</span>
+      </div>
+    `;
+    container.appendChild(card);
+  });
 }
 
 // ─────────────────────────────────────────────
@@ -338,15 +397,48 @@ navToggle.addEventListener("click", () => {
   navToggle.setAttribute("aria-expanded", isOpen);
 });
 
-// Active nav highlight on scroll
+// ─────────────────────────────────────────────
+// 6b. ACTIVE NAV UNDERLINE (Fix #4)
+// ─────────────────────────────────────────────
+// A single shared underline element is moved (translateX/width) under the
+// active link, so it glides between items instead of popping in fresh
+// on every link. Falls back gracefully if nav-links isn't a flex row
+// (mobile dropdown), where the underline is hidden via CSS instead.
+const navUnderline = document.createElement("span");
+navUnderline.className = "nav-underline";
+navLinks.appendChild(navUnderline);
+
+function moveUnderlineTo(link) {
+  if (!link || window.innerWidth <= 900) return;
+  const linkRect = link.getBoundingClientRect();
+  const parentRect = navLinks.getBoundingClientRect();
+  navUnderline.style.width = `${linkRect.width}px`;
+  navUnderline.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
+  navUnderline.style.opacity = "1";
+}
+
+// ─────────────────────────────────────────────
+// 7. ACTIVE NAV HIGHLIGHT ON SCROLL
+// ─────────────────────────────────────────────
 const sections = document.querySelectorAll("section[id]");
 const navObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        let matched = null;
         allNavLinks.forEach((link) => {
-          link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+          const isActive = link.getAttribute("href") === `#${entry.target.id}`;
+          link.classList.toggle("active", isActive);
+          if (isActive) matched = link;
         });
+        // #contact has no corresponding .nav-link (it's the CTA button),
+        // so when it becomes the active section, fade the underline out
+        // instead of leaving it parked on whatever link was last active.
+        if (matched) {
+          moveUnderlineTo(matched);
+        } else {
+          navUnderline.style.opacity = "0";
+        }
       }
     });
   },
@@ -354,8 +446,18 @@ const navObserver = new IntersectionObserver(
 );
 sections.forEach((s) => navObserver.observe(s));
 
+// Keep underline aligned on resize, and re-sync after fonts/layout settle
+window.addEventListener("resize", () => {
+  const current = document.querySelector(".nav-link.active") || document.querySelector(".nav-link");
+  moveUnderlineTo(current);
+});
+window.addEventListener("load", () => {
+  const current = document.querySelector(".nav-link.active") || document.querySelector(".nav-link");
+  moveUnderlineTo(current);
+});
+
 // ─────────────────────────────────────────────
-// 7. SCROLL REVEAL
+// 8. SCROLL REVEAL
 // ─────────────────────────────────────────────
 function observeRevealElements() {
   const revealObserver = new IntersectionObserver(
@@ -384,7 +486,7 @@ function observeRevealElements() {
 }
 
 // ─────────────────────────────────────────────
-// 8. CONTACT FORM
+// 9. CONTACT FORM
 // ─────────────────────────────────────────────
 const contactForm = document.getElementById("contactForm");
 if (contactForm) {
@@ -420,13 +522,23 @@ if (contactForm) {
 }
 
 // ─────────────────────────────────────────────
-// 9. INIT
+// 10. INIT
 // ─────────────────────────────────────────────
 (function init() {
   renderCards(experienceData, document.getElementById("experienceGrid"), "experience");
   renderCards(projectsData,   document.getElementById("projectsGrid"),   "project");
+  renderEducationCards(educationData, document.getElementById("educationGroup"));
 
-  document.querySelectorAll(".glass, .section-header, .stat, .timeline-item")
+  // NOTE: about-bio / about-skills / contact-direct / contact-form-wrap are
+  // intentionally NOT auto-tagged with "reveal" anymore for hover/scale —
+  // see Fix #5. Only top-level section entrance reveal remains.
+  document.querySelectorAll(".section-header, .stat, .edu-card")
     .forEach((el) => el.classList.add("reveal"));
   observeRevealElements();
+
+  // Initial underline position once active link is determined
+  requestAnimationFrame(() => {
+    const current = document.querySelector(".nav-link.active") || document.querySelector(".nav-link");
+    moveUnderlineTo(current);
+  });
 })();

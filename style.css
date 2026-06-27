@@ -290,8 +290,12 @@ input, textarea { font: inherit; }
 }
 .terminal-body .prompt { color: var(--white); margin-right: 0.5rem; }
 .terminal-body .reply  { color: var(--gray-500); padding-left: 1.1rem; }
-.cursor { animation: blink 1s step-end infinite; }
-@keyframes blink { 50% { opacity: 0; } }
+/* Fix #3: cursor blink was 1s step-end (hard snap, felt frantic at a glance
+   because step-end has no fade — it just hard-cuts). Slowed to 1.1s and
+   swapped to ease-in-out so the on/off feels like a natural breathing
+   blink rather than a flicker. */
+.cursor { animation: blink 1.1s ease-in-out infinite; }
+@keyframes blink { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } 100% { opacity: 1; } }
 
 /* ============================
    BUTTONS
@@ -405,10 +409,68 @@ input, textarea { font: inherit; }
 .about-skills {
   padding: var(--space-lg);
 }
-.about-education {
-  grid-column: 1 / -1;
-  padding: var(--space-lg);
+
+/* Fix #2: about-bio and about-skills must match height. Both already sit
+   in the same CSS grid row, but their CONTENT lengths differ (bio has a
+   photo + 2 paragraphs; skills has 4 groups of tags) which made the grid
+   row size to the taller one while the shorter card visually looked
+   shorter/uneven in the screenshot due to inner alignment. Stretch is the
+   default align-items in grid, so the real fix is to make both inner
+   bio/skills cards genuinely fill their grid cell with flex column +
+   space-between on the bio side so its content doesn't just float at
+   natural height while skills' uses up the full cell. */
+.about-bio,
+.about-skills {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+.about-bio-inner { flex: 1; }
+
+/* Fix #1: Education timeline — each period becomes its OWN card, stacked
+   in a column, replacing the single .about-education wrapper that held an
+   internal .timeline list. */
+.about-education-group {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.edu-card {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding: var(--space-lg);
+  /* No hover/scale transform and no .glass hover treatment on this card —
+     per Fix #1 request: "dont need any type of animation in main card".
+     We deliberately do NOT inherit the .glass hover lift below. */
+}
+.edu-card-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gray-700);
+  border: 2px solid var(--gray-500);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.edu-card-dot--active {
+  background: var(--white);
+  border-color: var(--white);
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+.edu-card-body { display: flex; flex-direction: column; gap: 4px; }
+.edu-card-date {
+  font-size: var(--text-xs);
+  color: var(--gray-500);
+  letter-spacing: 0.06em;
+}
+.edu-card-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--white);
+}
+.edu-card-place { font-size: var(--text-sm); color: var(--gray-500); }
+.edu-card .tag { align-self: flex-start; margin-top: 4px; }
 
 .card-heading {
   font-size: var(--text-base);
@@ -441,39 +503,6 @@ input, textarea { font: inherit; }
   border-color: rgba(255,255,255,0.25);
   color: var(--white);
 }
-
-/* Timeline */
-.timeline { display: flex; flex-direction: column; gap: var(--space-md); }
-.timeline-item {
-  display: flex;
-  gap: var(--space-md);
-  align-items: flex-start;
-}
-.timeline-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--gray-700);
-  border: 2px solid var(--gray-500);
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-.timeline-dot--active {
-  background: var(--white);
-  border-color: var(--white);
-  box-shadow: 0 0 10px rgba(255,255,255,0.4);
-}
-.timeline-content { display: flex; flex-direction: column; gap: 4px; }
-.timeline-date {
-  font-size: var(--text-xs);
-  color: var(--gray-500);
-  letter-spacing: 0.06em;
-}
-.timeline-content strong {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--white);
-}
-.timeline-content p { font-size: var(--text-sm); color: var(--gray-500); }
 
 /* ============================
    CARDS GRID (Experience & Projects)
@@ -894,7 +923,7 @@ input, textarea { font: inherit; }
   .about-grid {
     grid-template-columns: 1fr;
   }
-  .about-education { grid-column: auto; }
+  .about-education-group { grid-column: auto; }
   .about-bio-inner {
     flex-direction: column;
     align-items: center;
@@ -904,6 +933,10 @@ input, textarea { font: inherit; }
     flex: 0 0 auto;
   }
   .about-langs { justify-content: center; }
+
+  /* Fix #2 only applies to the desktop 2-col grid; stacked mobile layout
+     should let each card size to its own content naturally. */
+  .about-bio, .about-skills { height: auto; }
 
   .contact-grid {
     grid-template-columns: 1fr;
@@ -933,7 +966,7 @@ input, textarea { font: inherit; }
   .card-excerpt { font-size: var(--text-sm); }
 
   .modal { padding: var(--space-lg) var(--space-md); }
-  .about-bio, .about-skills, .about-education,
+  .about-bio, .about-skills, .edu-card,
   .contact-direct, .contact-form-wrap {
     padding: var(--space-md);
   }
@@ -1028,6 +1061,7 @@ input, textarea { font: inherit; }
   align-items: center;
   justify-content: center;
   gap: var(--space-lg);
+  position: relative; /* anchor for the sliding underline (Fix #4) */
 }
 .nav-right {
   display: flex;
@@ -1073,20 +1107,24 @@ input, textarea { font: inherit; }
    HOVER SCALE / INTERACTIVE EFFECTS
    ============================ */
 
-/* Glass cards scale on hover */
+/* Fix #5: about-bio, about-skills, contact-direct, contact-form-wrap must
+   NOT have any hover/animation effect. The shared ".glass:hover" lift
+   below would otherwise apply to them too (they all carry the .glass
+   class), so we explicitly cancel it back out using the *--static
+   marker classes added in the HTML, with higher specificity than the
+   plain .glass:hover rule. */
 .glass {
   transition: transform 0.45s var(--ease-spring),
               box-shadow 0.4s var(--ease),
               border-color var(--duration-fast) var(--ease);
 }
-.about-bio:hover,
-.about-skills:hover,
-.about-education:hover,
-.contact-direct:hover,
-.contact-form-wrap:hover {
-  transform: translateY(-5px) scale(1.012);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
-  border-color: rgba(255,255,255,0.15);
+.about-bio--static:hover,
+.about-skills--static:hover,
+.contact-direct--static:hover,
+.contact-form-wrap--static:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--glass-border);
 }
 
 /* Tags pop on hover */
@@ -1111,16 +1149,6 @@ input, textarea { font: inherit; }
 .stat:hover { transform: scale(1.08); }
 .stat:hover .stat-number { color: var(--white); }
 
-/* Timeline dots glow on hover */
-.timeline-item:hover .timeline-dot {
-  background: var(--white);
-  border-color: var(--white);
-  box-shadow: 0 0 12px rgba(255,255,255,0.5);
-  transition: background var(--duration) var(--ease),
-              border-color var(--duration) var(--ease),
-              box-shadow 0.4s var(--ease);
-}
-
 /* Form inputs lift on focus */
 .form-input:focus {
   transform: translateY(-2px);
@@ -1131,13 +1159,30 @@ input, textarea { font: inherit; }
               box-shadow var(--duration) var(--ease);
 }
 
-/* Nav link scale on hover */
+/* Nav link scale on hover + active underline (Fix #4) */
 .nav-link {
+  position: relative;
   transition: color var(--duration-fast) var(--ease),
               transform 0.3s var(--ease-spring);
 }
 .nav-link:hover {
   transform: translateY(-2px);
+}
+.nav-link.active { color: var(--white); }
+
+.nav-underline {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--white);
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s var(--ease-spring),
+              width 0.35s var(--ease-spring),
+              opacity 0.2s var(--ease);
 }
 
 /* Button press effect */
@@ -1228,6 +1273,9 @@ input, textarea { font: inherit; }
     display: flex;
     flex-shrink: 0;
   }
+  /* Fix #4: the sliding underline only makes sense for the horizontal
+     desktop nav row — hide it in the mobile dropdown list. */
+  .nav-underline { display: none; }
 }
 
 @media (max-width: 480px) {
