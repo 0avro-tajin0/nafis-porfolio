@@ -1,544 +1,157 @@
-/* ============================================================
-   NAFIS IQBAL TAZIN — Portfolio Script
-   ============================================================ */
+// ===========================================
+// Nafis Iqbal Tazin — Portfolio JS
+// ===========================================
 
-// ─────────────────────────────────────────────
-// 1. EXPERIENCE DATA  (updated from CV)
-// ─────────────────────────────────────────────
-const experienceData = [
-  {
-    id: "exp-packly",
-    period: "Nov 2025 – Present",
-    badge: "Current Role",
-    badgeActive: true,
-    title: "Customer Service Executive — Merchant Operations",
-    company: "Packly · Jigatola, Pilkhana Gate, Dhanmondi, Dhaka",
-    excerpt:
-      "Team Lead for a customer care unit handling merchant onboarding, escalations, and cross-team coordination. Awarded Best CC Team Lead of the Month.",
-    tags: ["Team Lead", "SLA Monitoring", "Escalation Handling", "Ticketing Systems"],
-    details: {
-      highlights: [
-        "Led and supervised a Customer Care team handling merchant onboarding, account activation, and order management issues.",
-        "Provided end-to-end merchant support, ensuring timely resolution under all circumstances.",
-        "Coordinated customer support operations including parcel tracking, urgent delivery handling, and parcel issue resolution.",
-        "Maintained seamless coordination between cross-functional operational teams — Product Approval and Order Management — to ensure smooth service delivery.",
-        "Arranged and confirmed hub pickups when merchants submitted pickup requests, ensuring timely parcel movement.",
-        "Served as the primary escalation point for critical and complex cases, ensuring high satisfaction for both merchants and customers.",
-        "Monitored team performance, ensured SLA compliance, and maintained high service quality standards.",
-        "Collaborated with internal teams to improve operational efficiency and reduce resolution turnaround time.",
-        "🏆 Awarded Best Customer Care (CC) Team Lead of the Month — for resolving the highest number of critical issues and achieving top ratings from merchants and customers.",
-      ],
-    },
-  },
-  {
-    id: "exp-lifeskills",
-    period: "Jan 2023 – Jul 2025",
-    badge: "Instructor",
-    badgeActive: false,
-    title: "Course Instructor",
-    company: "LifeSkills IT Institute · Hybrid",
-    excerpt:
-      "Taught Web Design, WordPress, and Data Entry to 100+ students — online and offline — with a track record of moving learners into professional careers.",
-    tags: ["WordPress", "Web Design", "Data Entry", "Mentorship"],
-    details: {
-      highlights: [
-        "Guided 100+ students in Web Design, WordPress, and Data Entry across both online and offline classes.",
-        "Fostered a supportive learning environment that helped students thrive regardless of format.",
-        "Mentored students who successfully advanced into professional careers.",
-        "Provided one-on-one consultations and tailored career advice to struggling learners.",
-        "Empowered students to define clear career paths with actionable, personalised guidance.",
-      ],
-    },
-  },
-  {
-    id: "exp-surgiicare",
-    period: "Jan 2025 – Apr 2025",
-    badge: "Freelance",
-    badgeActive: false,
-    title: "Web Manager",
-    company: "Surgiicare BD · Remote",
-    excerpt:
-      "Rebuilt a bloated WooCommerce medical e-commerce store — audited 100+ plugins, cut load times, and shipped a lean, maintainable branded store.",
-    tags: ["WordPress", "WooCommerce", "Elementor Pro", "Performance Optimization"],
-    details: {
-      highlights: [
-        "Developed a fully functional WooCommerce-based medical eCommerce website tailored to client specifications.",
-        "Transformed a premium Elementor UI Kit into a unique, branded shopping experience.",
-        "Customised UI elements (colour palette, button styles) and redesigned product, category, and checkout pages.",
-        "Ensured a niche-specific, user-friendly design through close collaboration with the client.",
-        "Took ownership of a sluggish website impacted by 100+ developers and excessive plugins.",
-        "Audited and optimised plugin usage, media assets, and redundant code.",
-        "Streamlined the platform with a lightweight Elementor Pro setup, minimal add-ons, and smart caching strategies.",
-        "Delivered a fast-loading, high-performance site with improved UX, stronger metrics, and reduced maintenance overhead.",
-      ],
-    },
-  },
-  {
-    id: "exp-100miles",
-    period: "Jan 2024 – May 2024",
-    badge: "Instructor",
-    badgeActive: false,
-    title: "Course Instructor",
-    company: "100 Miles IT Institute · Online",
-    excerpt:
-      "Delivered the WordPress/web design curriculum in a fully online format, adapting pacing for remote learners and providing career guidance.",
-    tags: ["WordPress", "Web Design", "Online Teaching", "Career Guidance"],
-    details: {
-      highlights: [
-        "Fostered a supportive learning environment across online classes.",
-        "Mentored students who successfully advanced into professional careers.",
-        "Provided one-on-one consultations and tailored career advice to struggling learners.",
-      ],
-    },
-  },
-];
+document.addEventListener('DOMContentLoaded', () => {
 
-// ─────────────────────────────────────────────
-// 2. PROJECTS DATA
-// ─────────────────────────────────────────────
-const projectsData = [
-  {
-    id: "proj-ems",
-    period: "2024 – Present",
-    badge: "Live & In Use",
-    badgeActive: true,
-    title: "Employee Management System",
-    company: "Internal Tool — Packly",
-    excerpt:
-      "A Google Apps Script + Sheets web app for a 20+ person order management team: task logging, shift tracking, and a manager dashboard. Still in active daily use.",
-    tags: ["Google Apps Script", "Google Sheets", "Web App", "Automation"],
-    details: {
-      highlights: [
-        "Built a web app for a 20+ person order management team at Packly.",
-        "Features include agent task logging, shift time tracking, and a manager dashboard with colour-coded status chips.",
-        "Built entirely on Google Apps Script and Google Sheets — zero external hosting cost.",
-        "Replaced manual spreadsheet chaos with a structured, real-time system.",
-        "Still in active daily use by the team.",
-      ],
-    },
-  },
-  {
-    id: "proj-surgiicare",
-    period: "Jan – Apr 2025",
-    badge: "Shipped",
-    badgeActive: false,
-    title: "WooCommerce Medical Store",
-    company: "Surgiicare BD · surgiicare.com.bd",
-    excerpt:
-      "Full build-to-launch e-commerce site for a medical supplies client — from a bloated, multi-developer mess to a lean, fast, branded WooCommerce store.",
-    tags: ["WooCommerce", "Elementor Pro", "WordPress", "E-Commerce"],
-    details: {
-      highlights: [
-        "Built a WooCommerce medical e-commerce store from a premium Elementor UI kit.",
-        "Customised product, category, and checkout pages to match the client's branding.",
-        "Audited and cleaned a site that had been touched by 100+ previous developers.",
-        "Removed all redundant plugins and rebuilt around a lean Elementor Pro stack with caching.",
-        "Delivered a noticeably faster, easier-to-maintain production site.",
-      ],
-    },
-    link: "https://surgiicare.com.bd",
-  },
-  {
-    id: "proj-surgiicare-agency",
-    period: "Jan – Apr 2025",
-    badge: "Shipped",
-    badgeActive: false,
-    title: "Agency Website",
-    company: "Surgiicare BD · surgiicare.com",
-    excerpt:
-      "Built and managed the corporate agency website for Surgiicare BD, separate from the medical store — covering the company's service-facing web presence.",
-    tags: ["WordPress", "Elementor", "Web Management"],
-    details: {
-      highlights: [
-        "Developed and managed the corporate/agency website for Surgiicare BD at surgiicare.com.",
-        "Worked alongside the medical e-commerce store build for the same client, handling both properties.",
-        "Customised layout, branding, and content structure for the agency-facing site.",
-        "Maintained consistent design language across both the agency site and the e-commerce store.",
-      ],
-    },
-    link: "https://surgiicare.com",
-  },
-];
+  /* ---------- 1. Preloader ---------- */
+  const preloader = document.getElementById('preloader');
 
-// ─────────────────────────────────────────────
-// 2b. EDUCATION DATA (now one card per item — see Fix #1)
-// ─────────────────────────────────────────────
-const educationData = [
-  {
-    date: "2018 – 2019",
-    title: "SSC",
-    place: "Kaundia Shahid Smrity High School, Dhaka",
-    tag: "GPA 3.85 / 5.00",
-    active: false,
-  },
-  {
-    date: "2021 – 2025",
-    title: "Diploma in Computer Science & Engineering",
-    place: "Ahsanullah Institute of Technical & Vocational Education and Training, Tezturi Bazar, Dhaka",
-    tag: "CGPA 3.15 / 4.00",
-    active: false,
-  },
-  {
-    date: "2026 →",
-    title: "BSc in Computer Science & Engineering",
-    place: "Manarat International University — Evening Shift",
-    tag: "Running",
-    active: true,
-  },
-  {
-    date: "2026 →",
-    title: "Network Security Professional Program",
-    place: "DIU IT Academy — CCNA, AWS Cloud, Linux, Data Center",
-    tag: "In Progress",
-    active: true,
-  },
-];
+  const hidePreloader = () => {
+    preloader.classList.add('hide');
+  };
 
-// ─────────────────────────────────────────────
-// 3. SECTION NAVIGATION — instant, no reload-feel, no scroll motion
-// ─────────────────────────────────────────────
-// Replaces the old full-screen "page transition" overlay, which added a
-// 700ms delay and made tab switches feel slow. This version jumps straight
-// to the target section and plays a quick, lightweight fade on it only.
-document.querySelectorAll(".nav-link, .btn--primary[href^='#'], .btn--ghost[href^='#'], .footer-back[href^='#']").forEach((link) => {
-  link.addEventListener("click", (e) => {
-    const href = link.getAttribute("href");
-    if (!href || !href.startsWith("#")) return;
-    e.preventDefault();
-
-    // Close mobile nav immediately
-    document.getElementById("navLinks").classList.remove("open");
-    document.getElementById("navToggle").classList.remove("open");
-    document.getElementById("navToggle").setAttribute("aria-expanded", "false");
-
-    const target = document.querySelector(href);
-    if (!target) return;
-
-    // Instant jump — no smooth scroll animation, no overlay delay
-    target.scrollIntoView({ behavior: "auto", block: "start" });
-
-    // Quick, subtle fade so the switch doesn't feel jarring,
-    // but with zero added wait time before content is visible
-    target.classList.remove("section-flash");
-    // eslint-disable-next-line no-unused-expressions
-    target.offsetWidth; // force reflow so the animation can restart
-    target.classList.add("section-flash");
-  });
-});
-
-// ─────────────────────────────────────────────
-// 4. CARD RENDERER
-// ─────────────────────────────────────────────
-function renderCards(data, container, type) {
-  if (!container) return;
-  container.innerHTML = "";
-  data.forEach((item, index) => {
-    const card = document.createElement("article");
-    card.className = "card reveal";
-    card.style.transitionDelay = `${index * 0.08}s`;
-    card.setAttribute("role", "button");
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("aria-label", `${item.title} — click to expand`);
-    card.dataset.id = item.id;
-
-    const tagsHTML = item.tags.map((t) => `<span class="tag">${t}</span>`).join("");
-    const linkHTML = item.link
-      ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="Visit live site">Visit Site ↗</a>`
-      : "";
-
-    card.innerHTML = `
-      <div class="card-meta">
-        <span class="card-period mono">${item.period}</span>
-        <span class="card-badge ${item.badgeActive ? "card-badge--active" : ""}">${item.badge}</span>
-      </div>
-      <h3 class="card-title">${item.title}</h3>
-      <p class="card-company">${item.company}</p>
-      <p class="card-excerpt">${item.excerpt}</p>
-      <div class="card-tags">${tagsHTML}</div>
-      <div class="card-footer-row">
-        <p class="card-cta">View details →</p>
-        ${linkHTML}
-      </div>
-    `;
-
-    card.addEventListener("click", () => openModal(item));
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(item); }
-    });
-    const cardLinkEl = card.querySelector(".card-link");
-    if (cardLinkEl) {
-      cardLinkEl.addEventListener("click", (e) => e.stopPropagation());
-    }
-    container.appendChild(card);
-  });
-  observeRevealElements();
-}
-
-// ─────────────────────────────────────────────
-// 4b. EDUCATION CARD RENDERER (Fix #1 — each period in its own card)
-// ─────────────────────────────────────────────
-function renderEducationCards(data, container) {
-  if (!container) return;
-  container.innerHTML = "";
-  data.forEach((item) => {
-    const card = document.createElement("div");
-    // NOTE: no "reveal" class on the inner card itself, and no hover/scale
-    // transition is attached in CSS for .edu-card — see Fix #1 in style.css.
-    card.className = "edu-card glass";
-
-    card.innerHTML = `
-      <div class="edu-card-dot ${item.active ? "edu-card-dot--active" : ""}"></div>
-      <div class="edu-card-body">
-        <span class="edu-card-date mono">${item.date}</span>
-        <strong class="edu-card-title">${item.title}</strong>
-        <p class="edu-card-place">${item.place}</p>
-        <span class="tag ${item.active ? "in-progress" : ""}">${item.tag}</span>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// ─────────────────────────────────────────────
-// 5. MODAL
-// ─────────────────────────────────────────────
-const modalOverlay = document.getElementById("modalOverlay");
-const modalContent = document.getElementById("modalContent");
-const modalClose   = document.getElementById("modalClose");
-
-function openModal(item) {
-  const tagsHTML   = item.tags.map((t) => `<span class="tag">${t}</span>`).join("");
-  const bulletHTML = item.details.highlights.map((h) => `<li>${h}</li>`).join("");
-  const linkHTML   = item.link
-    ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn--ghost modal-link">Visit Live Site ↗</a>`
-    : "";
-
-  modalContent.innerHTML = `
-    <p class="modal-eyebrow">${item.badge} · ${item.period}</p>
-    <h2 class="modal-title" id="modalTitle">${item.title}</h2>
-    <p class="modal-subtitle">${item.company}</p>
-    <hr class="modal-divider" />
-    <p class="modal-section-label">Highlights</p>
-    <ul>${bulletHTML}</ul>
-    <div class="modal-tags">${tagsHTML}</div>
-    ${linkHTML}
-  `;
-  modalOverlay.classList.add("open");
-  modalOverlay.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-  requestAnimationFrame(() => modalClose.focus());
-}
-
-function closeModal() {
-  modalOverlay.classList.remove("open");
-  modalOverlay.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-}
-
-modalClose.addEventListener("click", closeModal);
-modalOverlay.addEventListener("click", (e) => { if (e.target === modalOverlay) closeModal(); });
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modalOverlay.classList.contains("open")) closeModal();
-});
-
-// ─────────────────────────────────────────────
-// 6. NAVBAR
-// ─────────────────────────────────────────────
-const navbar    = document.getElementById("navbar");
-const navToggle = document.getElementById("navToggle");
-const navLinks  = document.getElementById("navLinks");
-const allNavLinks = document.querySelectorAll(".nav-link");
-
-window.addEventListener("scroll", () => {
-  navbar.classList.toggle("scrolled", window.scrollY > 30);
-}, { passive: true });
-
-// Hide navbar on scroll-down, reveal on scroll-up (mobile & tablet only).
-// Desktop keeps the navbar always visible.
-let lastScrollY = window.scrollY;
-let navHideTicking = false;
-
-function handleNavHide() {
-  const isMobileOrTablet = window.innerWidth <= 900;
-  const currentScrollY = window.scrollY;
-
-  if (isMobileOrTablet) {
-    const scrollDelta = currentScrollY - lastScrollY;
-    const pastThreshold = currentScrollY > 80;
-
-    // Always show navbar if mobile menu is open, near the top, or scrolling up
-    if (navLinks.classList.contains("open") || !pastThreshold || scrollDelta < -4) {
-      navbar.classList.remove("nav-hidden");
-    } else if (scrollDelta > 4) {
-      navbar.classList.add("nav-hidden");
-    }
+  if (sessionStorage.getItem('seenPreloader')) {
+    preloader.style.display = 'none';
   } else {
-    navbar.classList.remove("nav-hidden");
+    sessionStorage.setItem('seenPreloader', '1');
+    window.setTimeout(hidePreloader, 1400);
   }
 
-  lastScrollY = currentScrollY;
-  navHideTicking = false;
-}
+  /* ---------- 2. Custom cursor ---------- */
+  const cursor = document.getElementById('customCursor');
+  const cursorDot = document.getElementById('cursorDot');
 
-window.addEventListener("scroll", () => {
-  if (!navHideTicking) {
-    requestAnimationFrame(handleNavHide);
-    navHideTicking = true;
+  if (cursor && cursorDot) {
+    window.addEventListener('mousemove', (e) => {
+      const { clientX: x, clientY: y } = e;
+      cursorDot.style.left = `${x}px`;
+      cursorDot.style.top = `${y}px`;
+      cursor.style.left = `${x}px`;
+      cursor.style.top = `${y}px`;
+    });
+
+    const hoverTargets = document.querySelectorAll('a, button, input, textarea');
+    hoverTargets.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '44px';
+        cursor.style.height = '44px';
+        cursor.style.borderColor = '#fff';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '32px';
+        cursor.style.height = '32px';
+        cursor.style.borderColor = 'rgba(255,255,255,0.6)';
+      });
+    });
+
+    if ('ontouchstart' in window) {
+      const cursorWrapper = document.querySelector('.cursor-wrapper');
+      if (cursorWrapper) cursorWrapper.style.display = 'none';
+      document.body.style.cursor = 'auto';
+    }
   }
-}, { passive: true });
 
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 900) navbar.classList.remove("nav-hidden");
-});
+  /* ---------- 3. Scroll progress bar ---------- */
+  const progressLine = document.getElementById('progressLine');
 
-navToggle.addEventListener("click", () => {
-  const isOpen = navLinks.classList.toggle("open");
-  navToggle.classList.toggle("open", isOpen);
-  navToggle.setAttribute("aria-expanded", isOpen);
-});
+  const updateProgressBar = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressLine) progressLine.style.width = `${progress}%`;
+  };
 
-// ─────────────────────────────────────────────
-// 6b. ACTIVE NAV UNDERLINE (Fix #4)
-// ─────────────────────────────────────────────
-// A single shared underline element is moved (translateX/width) under the
-// active link, so it glides between items instead of popping in fresh
-// on every link. Falls back gracefully if nav-links isn't a flex row
-// (mobile dropdown), where the underline is hidden via CSS instead.
-const navUnderline = document.createElement("span");
-navUnderline.className = "nav-underline";
-navLinks.appendChild(navUnderline);
+  window.addEventListener('scroll', updateProgressBar, { passive: true });
+  updateProgressBar();
 
-function moveUnderlineTo(link) {
-  if (!link || window.innerWidth <= 900) return;
-  const linkRect = link.getBoundingClientRect();
-  const parentRect = navLinks.getBoundingClientRect();
-  navUnderline.style.width = `${linkRect.width}px`;
-  navUnderline.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
-  navUnderline.style.opacity = "1";
-}
+  /* ---------- 4. Navbar: scroll-hide and scroll-style ---------- */
+  const navbar = document.getElementById('navbar');
+  let lastScrollY = window.scrollY;
 
-// ─────────────────────────────────────────────
-// 7. ACTIVE NAV HIGHLIGHT ON SCROLL
-// ─────────────────────────────────────────────
-const sections = document.querySelectorAll("section[id]");
-const navObserver = new IntersectionObserver(
-  (entries) => {
+  const updateNavbar = () => {
+    const currentY = window.scrollY;
+
+    if (currentY > 80) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+
+    if (currentY > lastScrollY && currentY > 200) {
+      navbar.classList.add('hidden');
+    } else {
+      navbar.classList.remove('hidden');
+    }
+
+    lastScrollY = currentY;
+  };
+
+  window.addEventListener('scroll', updateNavbar, { passive: true });
+
+  /* ---------- 5. Mobile drawer ---------- */
+  const hamburger = document.getElementById('navHamburger');
+  const drawer = document.getElementById('mobileDrawer');
+
+  if (hamburger && drawer) {
+    hamburger.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+    });
+
+    // Close drawer on link click
+    drawer.querySelectorAll('.drawer-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  /* ---------- 6. Scroll-reveal animations ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        let matched = null;
-        allNavLinks.forEach((link) => {
-          const isActive = link.getAttribute("href") === `#${entry.target.id}`;
-          link.classList.toggle("active", isActive);
-          if (isActive) matched = link;
-        });
-        // #contact has no corresponding .nav-link (it's the CTA button),
-        // so when it becomes the active section, fade the underline out
-        // instead of leaving it parked on whatever link was last active.
-        if (matched) {
-          moveUnderlineTo(matched);
-        } else {
-          navUnderline.style.opacity = "0";
-        }
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
       }
     });
-  },
-  { rootMargin: "-40% 0px -55% 0px" }
-);
-sections.forEach((s) => navObserver.observe(s));
+  }, {
+    threshold: 0.1,
+  });
 
-// Keep underline aligned on resize, and re-sync after fonts/layout settle
-window.addEventListener("resize", () => {
-  const current = document.querySelector(".nav-link.active") || document.querySelector(".nav-link");
-  moveUnderlineTo(current);
+  revealEls.forEach((el) => revealObserver.observe(el));
+
+  /* ---------- 7. Smooth scroll for anchor links ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const navHeight = navbar ? navbar.offsetHeight : 80;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* ---------- 8. Contact form (demo) ---------- */
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const original = btn.textContent;
+      btn.textContent = 'Message Sent ✓';
+      btn.style.opacity = '0.7';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.opacity = '';
+        form.reset();
+      }, 2500);
+    });
+  }
+
 });
-window.addEventListener("load", () => {
-  const current = document.querySelector(".nav-link.active") || document.querySelector(".nav-link");
-  moveUnderlineTo(current);
-});
-
-// ─────────────────────────────────────────────
-// 8. SCROLL REVEAL
-// ─────────────────────────────────────────────
-function observeRevealElements() {
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.08 }
-  );
-  // Stagger reveal elements that share a parent, so groups cascade in
-  // smoothly instead of popping in all at once.
-  const groups = new Map();
-  document.querySelectorAll(".reveal:not(.visible)").forEach((el) => {
-    if (!el.style.transitionDelay) {
-      const parent = el.parentElement;
-      const count = groups.get(parent) || 0;
-      groups.set(parent, count + 1);
-      el.style.transitionDelay = `${Math.min(count * 0.08, 0.4)}s`;
-    }
-    revealObserver.observe(el);
-  });
-}
-
-// ─────────────────────────────────────────────
-// 9. CONTACT FORM
-// ─────────────────────────────────────────────
-const contactForm = document.getElementById("contactForm");
-if (contactForm) {
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const btn = contactForm.querySelector("button[type=submit]");
-    const original = btn.textContent;
-    btn.textContent = "Sending…";
-    btn.disabled = true;
-
-    const formData = new FormData(contactForm);
-    try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
-      });
-      btn.textContent = "Message Sent ✓";
-      btn.style.background = "#28c840";
-      btn.style.color = "#fff";
-      contactForm.reset();
-    } catch {
-      btn.textContent = "Failed — try WhatsApp";
-      btn.disabled = false;
-    }
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.disabled = false;
-      btn.style.background = "";
-      btn.style.color = "";
-    }, 4000);
-  });
-}
-
-// ─────────────────────────────────────────────
-// 10. INIT
-// ─────────────────────────────────────────────
-(function init() {
-  renderCards(experienceData, document.getElementById("experienceGrid"), "experience");
-  renderCards(projectsData,   document.getElementById("projectsGrid"),   "project");
-  renderEducationCards(educationData, document.getElementById("educationGroup"));
-
-  // NOTE: about-bio / about-skills / contact-direct / contact-form-wrap are
-  // intentionally NOT auto-tagged with "reveal" anymore for hover/scale —
-  // see Fix #5. Only top-level section entrance reveal remains.
-  document.querySelectorAll(".section-header, .stat, .edu-card")
-    .forEach((el) => el.classList.add("reveal"));
-  observeRevealElements();
-
-  // Initial underline position once active link is determined
-  requestAnimationFrame(() => {
-    const current = document.querySelector(".nav-link.active") || document.querySelector(".nav-link");
-    moveUnderlineTo(current);
-  });
-})();
