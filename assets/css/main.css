@@ -139,8 +139,8 @@ body.js-ready [data-reveal].in-view { opacity: 1; transform: translateY(0); }
 .navmenu a, .navmenu a:focus {
   color: var(--text-dim);
   font-family: var(--font-body);
-  display: flex; align-items: center;
-  padding: 10px 14px; margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: flex-start;
+  padding: 0 0 0 17px; margin-bottom: 10px;
   font-size: 14.5px; font-weight: 500;
   border-radius: 50px;
   background: var(--bg-card);
@@ -151,7 +151,7 @@ body.js-ready [data-reveal].in-view { opacity: 1; transform: translateY(0); }
   white-space: nowrap;
 }
 
-.navmenu a i { font-size: 19px; min-width: 26px; flex-shrink: 0; }
+.navmenu a i { font-size: 19px; width: 20px; text-align: center; flex-shrink: 0; }
 .navmenu a span {
   white-space: nowrap;
   max-width: 0;
