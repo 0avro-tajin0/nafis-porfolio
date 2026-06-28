@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://nafisiqbalpf.netlify.app/sitemap.xml
