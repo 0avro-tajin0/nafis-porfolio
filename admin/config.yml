@@ -1,0 +1,88 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/img/projects"
+public_folder: "assets/img/projects"
+
+collections:
+
+  - name: "about"
+    label: "About"
+    files:
+      - label: "About Me"
+        name: "about"
+        file: "_data/about.json"
+        fields:
+          - { label: "Full Name", name: "name", widget: "string" }
+          - { label: "Role / Tagline", name: "tagline", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - { label: "Location", name: "location", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Facebook URL", name: "facebook", widget: "string" }
+          - { label: "YouTube URL", name: "youtube", widget: "string" }
+          - { label: "GitHub URL", name: "github", widget: "string" }
+
+  - name: "experience"
+    label: "Work Experience"
+    folder: "_data/experience"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Job Title", name: "title", widget: "string" }
+      - { label: "Company", name: "company", widget: "string" }
+      - { label: "Start Date", name: "start", widget: "string", hint: "e.g. Jan 2023" }
+      - { label: "End Date", name: "end", widget: "string", hint: "e.g. Jul 2025 or Present" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+
+  - name: "education"
+    label: "Education"
+    folder: "_data/education"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Degree", name: "degree", widget: "string" }
+      - { label: "Institution", name: "institution", widget: "string" }
+      - { label: "Start Year", name: "start", widget: "string" }
+      - { label: "End Year", name: "end", widget: "string", hint: "e.g. 2025 or Present" }
+      - { label: "Result", name: "result", widget: "string", hint: "e.g. CGPA 3.15 / 4.00" }
+
+  - name: "skills"
+    label: "Skills"
+    files:
+      - label: "Skills List"
+        name: "skills"
+        file: "_data/skills.json"
+        fields:
+          - label: "Skills"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Skill Name", name: "name", widget: "string" }
+              - { label: "Percentage", name: "percent", widget: "number", min: 0, max: 100 }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "_data/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Project Title", name: "title", widget: "string" }
+      - { label: "Short Description", name: "description", widget: "text" }
+      - { label: "Thumbnail Image", name: "thumbnail", widget: "image" }
+      - { label: "Problem", name: "problem", widget: "text" }
+      - { label: "What I Built", name: "built", widget: "text" }
+      - { label: "Result", name: "result", widget: "text" }
+      - { label: "Tags (comma separated)", name: "tags", widget: "string" }
+
+  - name: "services"
+    label: "Services"
+    folder: "_data/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Service Title", name: "title", widget: "string" }
+      - { label: "Icon (Bootstrap icon class)", name: "icon", widget: "string", hint: "e.g. bi-code-slash" }
+      - { label: "Description", name: "description", widget: "text" }
