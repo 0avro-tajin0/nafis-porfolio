@@ -173,6 +173,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ---------- About photo slider (10s interval) ---------- */
+  const slides = document.querySelectorAll('.about-slide');
+  const sdots  = document.querySelectorAll('.sdot');
+  let currentSlide = 0;
+
+  function goToSlide(idx) {
+    slides[currentSlide].classList.remove('active');
+    sdots[currentSlide].classList.remove('active');
+    currentSlide = idx % slides.length;
+    slides[currentSlide].classList.add('active');
+    sdots[currentSlide].classList.add('active');
+  }
+
+  if (slides.length > 1) {
+    setInterval(() => goToSlide(currentSlide + 1), 10000);
+    sdots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
+  }
+
   /* ---------- Contact form (Netlify Forms compatible) ---------- */
   const form = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');

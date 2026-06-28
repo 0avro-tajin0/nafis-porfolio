@@ -42,7 +42,6 @@
   <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<script src="https://unpkg.com/netlify-identity-widget@1/build/netlify-identity-widget.js"></script>
 
 <body>
 
@@ -102,45 +101,36 @@
       <div class="container section-title" data-reveal>
         <span class="eyebrow">// 01</span>
         <h2>About</h2>
-        <p>Built for systems that can't afford downtime — IT operations and web development across customer support, internal tooling, and freelance builds.</p>
       </div>
 
       <div class="container about-inner" data-reveal>
-        <div class="row about-row">
+        <div class="about-row">
+
+          <!-- Photo Slider -->
           <div class="about-img-col">
-            <img src="assets/img/profile/about-photo.jpg" alt="Nafis Iqbal Tazin" class="about-img">
-          </div>
-          <div class="about-content-col">
-            <h3>Team Lead, Customer Care — Packly</h3>
-            <p class="about-italic">
-              IT and operations professional with hands-on experience across merchant operations,
-              WordPress web development, and technical instruction.
-            </p>
-
-            <div class="about-meta-row">
-              <ul class="meta-list">
-                <li><i class="bi bi-chevron-right"></i> <strong>Location:</strong> <span>Kaundia, Mirpur-1, Dhaka</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>tazin.nafisiqbal@gmail.com</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+880 1996-577199</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
-              </ul>
-              <ul class="meta-list">
-                <li><i class="bi bi-chevron-right"></i> <strong>Studying:</strong> <span>BSc CSE (Evening) — Manarat Int'l University</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Focus:</strong> <span>Networking &amp; Security (CCNA in progress)</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Languages:</strong> <span>Bangla, English</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Role:</strong> <span>Team Lead, Customer Care</span></li>
-              </ul>
+            <div class="about-slider">
+              <img src="assets/img/profile/about-photo.jpg"  alt="Nafis Iqbal Tazin" class="about-slide active">
+              <img src="assets/img/profile/about-photo-2.png" alt="Nafis Iqbal Tazin" class="about-slide">
+              <div class="slider-dots">
+                <span class="sdot active"></span>
+                <span class="sdot"></span>
+              </div>
             </div>
+          </div>
 
-            <p class="about-body">
-              I lead a customer care team at one of Bangladesh's fastest-moving logistics
-              platforms, build the internal tools that keep that team running, and spend my
-              evenings deep in networking labs — CCNA, Linux, the stuff that actually keeps
-              infrastructure alive. Before that: three years teaching WordPress and web design
-              to 100+ students, and a freelance run rebuilding a bloated medical eCommerce site
-              into something fast and maintainable.
+          <!-- Content -->
+          <div class="about-content-col">
+            <h3>Tazin Nafis Iqbal</h3>
+            <span class="about-badge"><i class="bi bi-display"></i> Open to IT / Networking / Sysadmin roles</span>
+            <p class="about-bio">
+              I build and manage systems — from internal tooling for logistics operations to
+              WordPress platforms for real users. Evenings go to networking labs: CCNA,
+              Linux, the protocols that actually keep infrastructure alive. Three years teaching
+              web development to 100+ students sharpened how I explain technical ideas.
+              Now I'm looking to do this full time in IT and networking.
             </p>
           </div>
+
         </div>
       </div>
     </section>
